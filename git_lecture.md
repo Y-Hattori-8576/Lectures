@@ -16,6 +16,11 @@
 
 - このドキュメントで使用されるコマンドは一部、LinuxもしくはMacで使用されるコマンドになります。WindowsでWSL以外のCLIをお使いの方などは、適宜別のコマンドに置き換えて実行してください。
 
+## この講義で実行するコマンド
+
+```sh
+```
+
 ## Chapter 1: ローカルリポジトリの作成
 
 Gitはソースコードのバージョン管理ツールです。
@@ -275,7 +280,8 @@ git pull
 
 次に、コミット履歴を別のブランチへ統合してみましょう。
 今、あなたのリポジトリには`master`ブランチと`lesson/how_to_use_git`ブランチが存在していると思います。
-`master`ブランチに`lesson/how_to_use_git`ブランチのコミット履歴を統合するのはあとでGitHub上で行いたいので、一度`master`ブランチに切り替えてから新しいブランチを作成してください。
+`master`ブランチに`lesson/how_to_use_git`ブランチのコミット履歴を統合するのはプルリクエストの講義で行いたいので、新しいブランチを作成します。
+以下のコマンドで、一度`master`ブランチに切り替えてから新規ブランチを作成してください。
 
 ```sh
 git switch master
@@ -301,4 +307,81 @@ git add README.md
 git commit -m 'This commit causes a conflict.'
 ```
 
+次に`lesson/branch_for_using_on_merge_lesson`ブランチに`lesson/how_to_use_git`ブランチのコミット履歴を統合します。
+
+```sh
+git merge lesson/how_to_use_git
+```
+
+はい、コンフリクトが起きましたね。
+下記のような出力が確認できたと思います。
+
+```
+CONFLICT (add/add): Merge conflict in README.md
+Auto-merging README.md
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+これは双方のブランチで同時に`README.md`の編集を行ったため、どちらのコミット内容を反映すれば良いかGitが判断できないためです。
+これは我々人間の手で修正してあげる必要があります。
+
+任意のエディタで`README.md`を確認してください。
+
+```
+<<<<<<< HEAD
+# Merge & Conflict resolution lesson
+=======
+# Git lesson
+>>>>>>> lesson/how_to_use_git
+```
+
+現在このようになっているかと思います。
+`<<<<<<< HEAD`から`=======`の間が現在のブランチで加えた変更です。
+`=======`から`>>>>>>> lesson/how_to_use_git`の間がマージしようとしたブランチで行った変更内容になります。
+この区切り用の文字列はGitにより自動挿入されています。
+これを`fix conflicts and then commit the result.`という出力にあるとおり、修正してコミットしなおしてみましょう。
+
+```
+# Git lesson
+```
+
+今回は上記のように`# Git lesson`だけ残してあげましょう。
+もちろんこれが気に入らないのであれば、好きなように修正してかまいません。
+これで以下のコマンドを実行するとをすると..
+
+```sh
+git add README.md
+git commit
+```
+
+自動でエディタが立ち上がり、マージコミットのメッセージ編集が可能になります。
+基本的に自動で作成されているコミットメッセージのままで良いかと思うので、そのまま保存してエディタを閉じ、ログを確認してください。
+
+```
+git log
+```
+
+マージコミットが作成されました。
+
 ## Chapter 12: プルリクエスト(マージリクエスト)の作成
+
+講義の最後にGitHub上でプルリクエストを作成しましょう。
+これはあなたの作業ブランチを他の重要なブランチに統合する際に、実装内容・目的・実装方法をレビュワーに伝え、あなたのコードを評価してもらうために作成します。
+今後あなたがGitによる開発を行っていく際、このマージリクエストを積み上げる度にエンジニアとしての成長を実感できるはずです。
+使用するサービスによってはMR(マージリクエスト)と呼ぶこともあります。
+レビュワーに対してブランチの統合依頼を作成するという点では同じことなので混乱しないようにしましょう。
+
+以下の手順でプルリクエストを作成できます。
+
+1. ローカルの作業ブランチでリモートにプッシュ
+   (今回は`lesson/branch_for_using_on_merge_lesson`)
+1. GitHubで開発中のリポジトリを開き、メニューから`Pull Request`を選択
+2. base(統合先)とcompare(統合元)、それぞれのブランチを選択し、`Create pull request`ボタンを押す
+   (今回の場合、baseが`master`、compareが`lesson/branch_for_using_on_merge_lesson`)
+3. Title, Commentを記入し、Reviewersを選択後、`Create pull request`ボタンを押す
+   (今回は講師をレビュワーに選択してください。講師をリポジトリへ招待する必要があります)
+4. レビュワーからGoサインが出たらMerge pull requestボタンを押してマージを実行
+   (この際、マージ方法を選択する必要があります。基本的には`Create a merge commit`で良いと思います)
+5. `Confirm merge`ボタンを押す
+
+
