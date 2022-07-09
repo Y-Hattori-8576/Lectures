@@ -236,10 +236,10 @@ Gitにコミットを追加するには以下のステップが必要です。
 2. `git add`でコミットしたいファイルを選択する
 3. `git commit`でコミットする
 
-まずは変更差分を発生させるために、例として以下のコマンドを実行し、`README.md`ファイルを作成してください。
+まずは変更差分を発生させるために、例として以下のコマンドを実行し、`<yourname>.md`ファイルを作成してください。
 
 ```sh
-echo '<yourname>勉強中' >> README.md
+echo '<yourname>勉強中' > <yourname>.md
 ```
 
 一度差分を確認してみましょう。
@@ -249,15 +249,15 @@ echo '<yourname>勉強中' >> README.md
 # 差分のあるファイルを確認
 git status
 # 差分を確認
-git diff HEAD README.md
+git diff HEAD <yourname>.md
 ```
 
 確認できたらコミットしていきましょう。
 以下のコマンドを実行してください。
 
 ```sh
-git add README.md # もしくは`git add .`で差分のあるファイル全てを自動でaddしてくれます。
-git commit -m 'postscript to README.md'
+git add <yourname>.md # もしくは`git add .`で差分のあるファイル全てを自動でaddしてくれます。
+git commit -m 'postscript to <yourname>.md'
 ```
 
 コミットが完了したら、以下のコマンドで履歴を確認しましょう。
@@ -326,7 +326,7 @@ git log
 3. 自動でエディタが立ち上がるので、何もせずsaveして閉じる
 
 実際にやってみましょう。
-私がREADME.mdに変更を加え、それをリモートにプッシュするので、同じファイルを編集してからそれをプルし、コンフリクトを解決してみてください。
+私が<yourname>.mdに変更を加え、それをリモートにプッシュするので、同じファイルを編集してからそれをプルし、コンフリクトを解決してみてください。
 
 ## Chapter 9: おまけ1 (Revert, Reset, Rebase)
 
