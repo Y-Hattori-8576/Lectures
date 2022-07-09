@@ -132,7 +132,7 @@ Gitでの管理を開始するための最初のステップはリポジトリ�
 2. `git clone`によりリモートのリポジトリをローカルに複製する。
 
 SESとして現場に入る場合、あまり新規にリポジトリを作成する機会はないと思うので、今回はリモートリポジトリを複製する方法で進めます。
-まずは私がGitHubに作成したリポジトリにアクセスするために、GitHubの登録を行ってください。
+まずはGitHubに作成されたリポジトリにアクセスするために、GitHubの登録を行ってください。
 
 ### GitHubの登録方法
 
@@ -189,7 +189,7 @@ GitHubの推奨はhttpsとパーソナルトークンを使用した通信方法
 
 ```sh
 mkdir ~/gitlecture && cd ~/gitlecture
-git clone git@github.com:Y-Hattori-8576/for_git_lecture.git .
+git clone <repository_address> . # <repository_address>は講演者から共有します
 ```
 
 上記が完了したら、次は名前とメールアドレスを`./.git/config`に追加します
@@ -215,7 +215,7 @@ git config core.editor YOUR_FAVORITE_EDITOR
 
 クローンが完了したら`git branch`コマンドを実行してみてください。
 おそらく`main`というブランチのみ、存在が確認できるでしょう。
-これは私がGitHubの方で設定したデフォルトブランチです。
+これはGitHubの方で設定されているデフォルトブランチです。
 
 ブランチはそれぞれ別のコミット履歴を持っているので、他のブランチに影響を与えることなく開発を行うことが可能です。
 別ブランチに切り替える場合は、`git switch`を利用します。
@@ -283,14 +283,14 @@ git push -u origin <your_branch_name>
 他の人がリモートリポジトリに上げた変更を取り込む場合は`git pull`を使用します。
 `pull`は内部的に、`git fetch`と`git merge`を同時に行います。
 `git fetch`はリモートリポジトリの履歴情報をローカルに持ってきてくれます。
-私がブランチにコミットを追加するので、それを`pull`してください。
+講演者がブランチにコミットを追加するので、それを`pull`してください。
 
 ```sh
 git pull
 git log
 ```
 
-ログに私が追加したコミットがあれば成功です。
+ログに講演者が追加したコミットがあれば成功です。
 
 ## Chapter 6: プルリクエスト(MR)の作成
 
@@ -304,7 +304,7 @@ git log
 2. base(統合先)とcompare(統合元)、それぞれのブランチを選択し、`Create pull request`ボタンを押す
    (今回の場合、baseが`main`、compareが`test/<yourname>`)
 3. Title, Commentを記入し、Reviewersを選択後、`Create pull request`ボタンを押す
-   (今回は私をレビュワーに選択してください。)
+   (今回は講演者をレビュワーに選択してください。)
 
 ## Chapter 7: マージ
 
@@ -326,7 +326,7 @@ git log
 3. 自動でエディタが立ち上がるので、何もせずsaveして閉じる
 
 実際にやってみましょう。
-私が<yourname>.mdに変更を加え、それをリモートにプッシュするので、同じファイルを編集してからそれをプルし、コンフリクトを解決してみてください。
+講演者が<yourname>.mdに変更を加え、それをリモートにプッシュするので、同じファイルを編集してからそれをプルし、コンフリクトを解決してみてください。
 
 ## Chapter 9: おまけ1 (Revert, Reset, Rebase)
 
