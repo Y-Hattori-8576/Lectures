@@ -94,7 +94,7 @@ git stash
 git clone <remote_url>
 
 # リモートリポジトリのブランチに現在のブランチのコミットを追加する
-git push <remote_name> <remote_branch_name>
+git push
 
 # リモートリポジトリの状態を取得する
 git fetch
